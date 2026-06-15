@@ -1,3 +1,15 @@
+# Java Notes — Quick Reference
+
+## Contents
+
+1. [Integer MAX / MIN Syntax](#java--integer-max--min-syntax)
+2. [Input Classes for Interviews](#java--input-classes-for-interviews)
+3. [StringBuilder vs StringBuffer](#java--stringbuilder-vs-stringbuffer)
+
+---
+
+<br>
+
 # Java — Integer MAX / MIN Syntax
 
 ## Integer (int) limits
@@ -73,7 +85,11 @@ long safe = (long) Integer.MAX_VALUE + 1;   // 2147483648
 int neg = -Integer.MIN_VALUE;           // -2147483648
 ```
 
+<sub>[↑ Back to top](#contents)</sub>
+
 ---
+
+<br>
 
 # Java — Input Classes for Interviews
 
@@ -143,7 +159,11 @@ System.out.print(sb);   // build once, print once
 - Large input (online assessment) → `BufferedReader` + `StringTokenizer`.
 - Large output → build a `StringBuilder`, print once.
 
+<sub>[↑ Back to top](#contents)</sub>
+
 ---
+
+<br>
 
 # Java — StringBuilder vs StringBuffer
 
@@ -171,3 +191,5 @@ String s = sb.toString();    // convert to String
 ```
 
 > Never build strings with `+=` in a loop — that creates a new `String` each iteration (`O(n²)`). Use `StringBuilder` (`O(n)`).
+
+<sub>[↑ Back to top](#contents)</sub>
