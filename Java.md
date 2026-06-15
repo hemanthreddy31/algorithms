@@ -142,3 +142,32 @@ System.out.print(sb);   // build once, print once
 - Default → `Scanner` (clean and readable; graders care about clarity).
 - Large input (online assessment) → `BufferedReader` + `StringTokenizer`.
 - Large output → build a `StringBuilder`, print once.
+
+---
+
+# Java — StringBuilder vs StringBuffer
+
+**Use `StringBuilder`.** It is the right choice for interviews and ~99% of real code.
+
+| Feature       | `StringBuilder`        | `StringBuffer`              |
+| ------------- | ---------------------- | --------------------------- |
+| Thread-safe   | No                     | Yes (methods `synchronized`)|
+| Speed         | Faster                 | Slower (locking overhead)   |
+| Since         | Java 5                 | Java 1.0                    |
+| Use when      | Single-threaded (always in DSA) | Shared mutable string across threads (rare) |
+
+Why: in an interview/algorithm you work on one thread, so the synchronization in `StringBuffer` is pure overhead. `StringBuilder` has the same API without the cost.
+
+```java
+StringBuilder sb = new StringBuilder();
+sb.append("ab").append(1);   // "ab1"
+sb.insert(0, "x");           // "xab1"
+sb.deleteCharAt(1);          // "xb1"
+sb.reverse();                // "1bx"
+sb.charAt(0);                // '1'
+sb.setCharAt(0, '2');        // "2bx"
+sb.length();                 // 3
+String s = sb.toString();    // convert to String
+```
+
+> Never build strings with `+=` in a loop — that creates a new `String` each iteration (`O(n²)`). Use `StringBuilder` (`O(n)`).
