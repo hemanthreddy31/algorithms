@@ -144,6 +144,27 @@ int[] arr = Arrays.stream(br.readLine().trim().split("\\s+"))
 ```
 > Faster than `split` for big input: use `StringTokenizer` to tokenize each line.
 
+### Complete example — read 3 ints from one line
+
+```java
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int a = Integer.parseInt(st.nextToken());
+        int b = Integer.parseInt(st.nextToken());
+        int c = Integer.parseInt(st.nextToken());
+
+        System.out.println(a + " " + b + " " + c);
+    }
+}
+```
+> `readLine()` throws `IOException`, so `main` declares `throws IOException`.
+
 ## Fast output (only if printing a lot)
 
 ```java
