@@ -72,3 +72,73 @@ long safe = (long) Integer.MAX_VALUE + 1;   // 2147483648
 // Negating MIN_VALUE overflows (stays MIN_VALUE)
 int neg = -Integer.MIN_VALUE;           // -2147483648
 ```
+
+---
+
+# Java — Input Classes for Interviews
+
+> In LeetCode-style interviews (Google/Amazon/Salesforce) the input is passed as method arguments, so you rarely parse stdin yourself. Know just these two for the rare cases (online assessments / console-based rounds).
+
+## Quick pick
+
+| Class            | Speed | Use when                                    |
+| ---------------- | ----- | ------------------------------------------- |
+| `Scanner`        | Slow  | Default. Easy, readable, small input        |
+| `BufferedReader` | Fast  | Large input (OA with 10^5+ lines), parsing  |
+
+Rule of thumb: **default to `Scanner`**; switch to `BufferedReader` only if input is large enough to risk TLE.
+
+## 1. Scanner — easy, slow
+
+```java
+import java.util.Scanner;
+
+Scanner sc = new Scanner(System.in);
+int n      = sc.nextInt();        // int token
+long l     = sc.nextLong();       // long token
+double d   = sc.nextDouble();     // double token
+String word = sc.next();          // single token (no spaces)
+String line = sc.nextLine();      // whole line
+
+sc.hasNext();      // more tokens?
+sc.hasNextInt();   // next token an int?
+sc.close();
+```
+> Gotcha: `nextInt()` then `nextLine()` — the trailing newline is read by `nextLine()`. Add an extra `sc.nextLine()` to consume it.
+
+## 2. BufferedReader — fast, line based
+
+```java
+import java.io.*;
+import java.util.*;
+
+BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+int n = Integer.parseInt(br.readLine().trim());     // single int line
+
+// Multiple ints on one line (space separated)
+StringTokenizer st = new StringTokenizer(br.readLine());
+int a = Integer.parseInt(st.nextToken());
+int b = Integer.parseInt(st.nextToken());
+
+// Array on one line
+int[] arr = Arrays.stream(br.readLine().trim().split("\\s+"))
+                  .mapToInt(Integer::parseInt)
+                  .toArray();
+```
+> Faster than `split` for big input: use `StringTokenizer` to tokenize each line.
+
+## Fast output (only if printing a lot)
+
+```java
+// Printing line-by-line with System.out.println is slow in a hot loop.
+StringBuilder sb = new StringBuilder();
+for (int i = 0; i < n; i++) sb.append(ans[i]).append('\n');
+System.out.print(sb);   // build once, print once
+```
+
+## Cheat sheet
+
+- Default → `Scanner` (clean and readable; graders care about clarity).
+- Large input (online assessment) → `BufferedReader` + `StringTokenizer`.
+- Large output → build a `StringBuilder`, print once.
